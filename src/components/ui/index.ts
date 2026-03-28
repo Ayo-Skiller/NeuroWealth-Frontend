@@ -6,6 +6,7 @@ export * from "./Button";
 export * from "./Card";
 export * from "./EmptyState";
 export * from "./ErrorPage";
+export * from "./FormErrors";
 export * from "./Input";
 export * from "./Modal";
 export type { ModalSize } from "./Modal";
