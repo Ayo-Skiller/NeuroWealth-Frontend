@@ -24,6 +24,6 @@ export function ClientProviders({ children }: { children: ReactNode }) {
         </WalletProvider>
       </AuthProvider>
     </I18nProvider>
-   <ThemeProvider>
+   </ThemeProvider>
   );
 }

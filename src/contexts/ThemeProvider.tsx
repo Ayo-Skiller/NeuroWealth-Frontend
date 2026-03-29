@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode, useMemo } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, ReactNode, useMemo } from "react";
 
 export type ThemeMode = "light" | "dark" | "system";
 
@@ -52,13 +52,13 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<ThemeMode>(getStoredTheme);
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => resolveTheme(theme));
 
-  const setTheme = (newTheme: ThemeMode) => {
+  const setTheme = useCallback((newTheme: ThemeMode) => {
     setThemeState(newTheme);
     globalThis.window?.localStorage.setItem(STORAGE_KEY, newTheme);
     const resolved = resolveTheme(newTheme);
     setResolvedTheme(resolved);
     applyTheme(resolved);
-  };
+  }, []);
 
   useEffect(() => {
     // Apply initial theme immediately to prevent flash
