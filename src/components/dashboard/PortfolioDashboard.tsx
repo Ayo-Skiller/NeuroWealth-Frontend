@@ -19,7 +19,7 @@ import {
   formatSyncLabel,
   formatTimestamp,
 } from "@/lib/formatters";
-import { useSandbox } from "@/contexts/SandboxContext";
+import { useSandbox, ScenarioType } from "@/contexts/SandboxContext";
 
 type ThemeMode = "light" | "dark";
 
@@ -113,6 +113,10 @@ function getScenario(
   return parseScenario(urlScenario);
 }
 
+function mapScenarioTypeToPortfolio(scenario: ScenarioType): PortfolioScenario {
+  return scenario === "success" ? "live" : scenario;
+}
+
 function getValueTone(value: number): "positive" | "negative" | "neutral" {
   if (value > 0) {
     return "positive";
@@ -189,7 +193,7 @@ export function PortfolioDashboard() {
   const [error, setError] = useState<string | null>(null);
 
   const theme = getTheme(searchParams);
-  const scenario = getScenario(searchParams, getCurrentScenario("portfolio"));
+  const scenario = getScenario(searchParams, mapScenarioTypeToPortfolio(getCurrentScenario("portfolio")));
 
   useEffect(() => {
     const controller = new AbortController();
